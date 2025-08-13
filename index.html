@@ -15,6 +15,7 @@
             background-color: #fff9fa;
             color: #333;
             scroll-behavior: smooth;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
         
         .dancing-font {
@@ -59,149 +60,188 @@
             font-size: 24px;
             color: #ff6b8b;
         }
+
+        /* Styles for the intro screen */
+        #introScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom right, #ffeef1, #ffc0cb); /* Soft pink gradient */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000; /* Ensure it's on top */
+            transition: opacity 0.5s ease-out;
+        }
+
+        #introScreen.hidden {
+            opacity: 0;
+            pointer-events: none; /* Disable interactions when hidden */
+        }
+
+        /* Hide main content initially */
+        #mainContent {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-pink-50/60 to-pink-100/60"></div>
-        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094785/hero_g8i0pc.png" alt="Romantic sunset with pink skies and floating heart balloons in warm golden light" class="absolute w-full h-full object-cover" onerror="this.style.display='none'">
-        
-        <div class="relative z-10 text-center px-4 py-16 max-w-4xl mx-auto">
-            <h1 class="dancing-font text-6xl md:text-8xl text-pink-600 mb-4 heart-beat">Happy Birthday</h1>
-            <p class="text-xl md:text-2xl text-pink-400 mb-8">My dearest <span class="dancing-font text-3xl font-bold text-pink-400">Khushuuu</span></p>
-            <div class="bg-white/90 rounded-lg p-6 shadow-lg">
-                <p class="text-lg md:text-xl italic mb-4">"Every moment with you feels like a celebration"</p>
-                <div class="flex justify-center space-x-4">
-                    <button onclick="wishNow(); this.disabled = true;" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full transition-all hover:animate-pulse">Click Here Before Scorlling</button>
-                </div>
-            </div>
+    <!-- Intro Screen -->
+    <div id="introScreen">
+        <div class="text-center p-8 bg-white rounded-xl shadow-2xl max-w-lg mx-auto transform transition-all duration-500 hover:scale-105">
+            <h1 class="dancing-font text-5xl md:text-7xl text-pink-600 mb-6 heart-beat">A Surprise Awaits!</h1>
+            <p class="text-xl md:text-2xl text-gray-700 mb-8">Click the button below to reveal a special message.</p>
+            <button onclick="openSurprise()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transition-all duration-300 transform hover:scale-105 hover:animate-pulse">
+                Click to Open the Surprise!
+            </button>
         </div>
-        
-        <div class="absolute bottom-10 left-0 right-0 flex justify-center">
-            <a href="#memories" id="scrollDownButton" class="animate-bounce block flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-                <span class="text-pink-500 text-sm mt-1">Scroll Down</span>
-            </a>
-        </div>
-    </header>
+    </div>
 
-    <!-- My Little Motuuu♡ -->
-    <section id="memories" class="py-16 px-4 md:px-8 bg-gradient-to-b from-pink-50 to-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="dancing-font text-4xl md:text-5xl text-center text-pink-600 mb-12">My Little Motuuu♡</h2>
+    <!-- Main Content (Initially Hidden) -->
+    <div id="mainContent">
+        <!-- Hero Section -->
+        <header class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-pink-50/60 to-pink-100/60"></div>
+            <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094785/hero_g8i0pc.png" alt="Romantic sunset with pink skies and floating heart balloons in warm golden light" class="absolute w-full h-full object-cover" onerror="this.style.display='none'">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Photo 1 -->
-                <div class="polaroid transform transition duration-500 hover:scale-105">
-                    <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094865/2_comxz7.jpg" alt="Couple laughing together at a sunny outdoor cafe with coffee cups on the table" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
-                    <p class="text-center dancing-font text-xl mt-2">♡</p>
+            <div class="relative z-10 text-center px-4 py-16 max-w-4xl mx-auto">
+                <h1 class="dancing-font text-6xl md:text-8xl text-pink-600 mb-4 heart-beat">Happy Birthday</h1>
+                <p class="text-xl md:text-2xl text-pink-400 mb-8">My dearest <span class="dancing-font text-3xl font-bold text-pink-400">Khushuuu</span></p>
+                <div class="bg-white/90 rounded-lg p-6 shadow-lg">
+                    <p class="text-lg md:text-xl italic mb-4">"Every moment with you feels like a celebration"</p>
+                    <div class="flex justify-center space-x-4">
+                        <button onclick="wishNow(); this.disabled = true;" class="bg-pink-500 hover:bg-pink-600 text-white px-6 py-3 rounded-full transition-all hover:animate-pulse">Click Here Before Scorlling</button>
+                    </div>
                 </div>
-                
-                <!-- Photo 2 -->
-                <div class="polaroid transform transition duration-500 hover:scale-105">
-                    <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094912/3_mktrtk.jpg" alt="Couple on a scenic hike with mountain backdrop and arms around each other" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
-                    <p class="text-center dancing-font text-xl mt-2">♡</p>
-                </div>
-                
-                <!-- Photo 3 -->
-                <div class="polaroid transform transition duration-500 hover:scale-105">
-                    <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094958/4_n3w1uq.jpg" alt="Romantic candlelit dinner at home with soft focus on hands holding" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
-                    <p class="text-center dancing-font text-xl mt-2">♡</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Birthday Message Section -->
-    <section class="py-16 px-4 md:px-8 bg-white">
-        <div class="max-w-4xl mx-auto bg-pink-50 rounded-xl p-8 md:p-12 shadow-sm">
-            <h2 class="dancing-font text-4xl text-center text-pink-600 mb-8">For My Khushuuu</h2>
-            
-            <div class="space-y-6 text-lg text-gray-700">
-                <p>My dearest Khushuuu,</p>
-                
-                <p>On this special day, I want you to know how incredibly lucky I feel to have you in my life. Pata hai, jab bhi mera mood off hota hai ya main sad hota hoon, tumhari bas ek hasi mera pura mood change kar deti hai. tumse milne ke baad sae mene apni life ke best moments spent kiya hae. Tum meri life ka woh hissa ho jahan main apna har dard, har khushi, bina soche samjhe keh sakta hoon. Tum meri comfort ho, meri safe place ho… aur shayad mera woh sabse gehra pyaar ho jo shabdon mein bayan nahi ho sakta.</p>
-                
-                <div class="secret-note">
-                    <p class="dancing-font text-xl">I don’t know, Khushu, how things will turn out between us in the future, but you’ve always been my peace and my comfort place. No matter what happens, I will always love you for who you are, even if we’re not together in a Relationship. I’m sorry if I’ve ever Hurt you, but since the day we met, I’ve always felt that you are the best part of my life—the one person I know I can always run to, no matter what I’m going through.Khushuu Whatever happens, I will always stand with you, and we will get through every problem together—I promise.</p>
-                </div>
-                
-                <p>Tumhare saath guzara har second, har minute, har moment mere liye itna special hota hai ki main usse words mein describe bhi nahi kar sakta. Mera tumhe Khushuuu ya Motuu bulana, silly jokes pe hasna, bakchodi karna, tumhara mujhe Shubhuu karke bulana, tumhara jealous hona, tumhara gussa hona, tumhara mujhpe apna haq jatana... har ek chhoti si baat, every small thing, mere dil ko ek alag hi sukoon deti hai.</p>
-                
-                <p>Thank you for standing by me in every situation. May God bless you with all the happiness you truly deserve. Love you a lot, Khushuuuuu... Muaaah🤍😘</p>
-                
-                <p class="text-center dancing-font text-3xl text-pink-600 mt-8">Happy Birthday, My Love ♡</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Our Moments Section -->
-    <section class="py-16 px-4 md:px-8 bg-gradient-to-b from-pink-50 to-white">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="dancing-font text-4xl md:text-5xl text-center text-pink-600 mb-12">Our Moments</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Photo 1 for Our Moments -->
-                <div class="polaroid transform transition duration-500 hover:scale-105">
-                    <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094692/1_srdugj.png" alt="Placeholder image for a special moment" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
-                    <p class="text-center dancing-font text-xl mt-2">♡</p>
-                </div>
-                
-                <!-- Photo 2 for Our Moments -->
-                <div class="polaroid transform transition duration-500 hover:scale-105">
-                    <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755095016/5_j2frk7.png" alt="Placeholder image for another special moment" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>Just Us</h3>'">
-                    <p class="text-center dancing-font text-xl mt-2">Just Us</p>
-                </div>
-                
-                <!-- Photo 3 for Our Moments -->
-                <div class="polaroid transform transition duration-500 hover:scale-105">
-                    <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755095063/6_zlgftc.png" alt="Placeholder image for a third special moment" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
-                    <p class="text-center dancing-font text-xl mt-2">♡</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Love Notes -->
-    <section class="py-16 px-4 md:px-8 bg-pink-50">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="dancing-font text-4xl text-center text-pink-600 mb-8">Click to Open Love Notes</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <button onclick="showNote(1)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center">
-                    <span class="dancing-font text-xl text-pink-700">Note #1: Our First Meet</span>
-                </button>
-                
-                <button onclick="showNote(2)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center">
-                    <span class="dancing-font text-xl text-pink-700">Note #2: Why Do I Love You</span>
-                </button>
-                
-                <button onclick="showNote(3)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center">
-                    <span class="dancing-font text-xl text-pink-700">Note #3: My Wishes for You</span>
-                </button>
-
-                <!-- NEW BUTTON FOR THANK YOU NOTE - PLACED IN THE MIDDLE OF THE NEXT ROW -->
-                <button onclick="showNote(4)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center col-start-2">
-                    <span class="dancing-font text-xl text-pink-700">Note #4: For All That You’ve Done</span>
-                </button>
             </div>
             
-            <div id="noteContainer" class="mt-8 bg-white rounded-lg shadow-md p-6 hidden">
-                <div id="noteContent"></div>
-                <button onclick="closeNote()" class="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full text-sm">Close Note</button>
+            <div class="absolute bottom-10 left-0 right-0 flex justify-center">
+                <a href="#memories" id="scrollDownButton" class="animate-bounce block flex flex-col items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                    <span class="text-pink-500 text-sm mt-1">Scroll Down</span>
+                </a>
             </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- Footer -->
-    <footer class="py-8 px-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white text-center">
-        <p class="dancing-font text-2xl mb-2">With all my love,</p>
-        <p class="text-lg">Your Special Someone</p>
-        <p class="mt-4 text-sm opacity-80">Made with ♡ for Khushuuu's Birthday</p>
-    </footer>
+        <!-- My Little Motuuu♡ -->
+        <section id="memories" class="py-16 px-4 md:px-8 bg-gradient-to-b from-pink-50 to-white">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="dancing-font text-4xl md:text-5xl text-center text-pink-600 mb-12">My Little Motuuu♡</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Photo 1 -->
+                    <div class="polaroid transform transition duration-500 hover:scale-105">
+                        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094865/2_comxz7.jpg" alt="Couple laughing together at a sunny outdoor cafe with coffee cups on the table" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
+                        <p class="text-center dancing-font text-xl mt-2">♡</p>
+                    </div>
+                    
+                    <!-- Photo 2 -->
+                    <div class="polaroid transform transition duration-500 hover:scale-105">
+                        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094912/3_mktrtk.jpg" alt="Couple on a scenic hike with mountain backdrop and arms around each other" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
+                        <p class="text-center dancing-font text-xl mt-2">♡</p>
+                    </div>
+                    
+                    <!-- Photo 3 -->
+                    <div class="polaroid transform transition duration-500 hover:scale-105">
+                        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094958/4_n3w1uq.jpg" alt="Romantic candlelit dinner at home with soft focus on hands holding" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
+                        <p class="text-center dancing-font text-xl mt-2">♡</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Birthday Message Section -->
+        <section class="py-16 px-4 md:px-8 bg-white">
+            <div class="max-w-4xl mx-auto bg-pink-50 rounded-xl p-8 md:p-12 shadow-sm">
+                <h2 class="dancing-font text-4xl text-center text-pink-600 mb-8">For My Khushuuu</h2>
+                
+                <div class="space-y-6 text-lg text-gray-700">
+                    <p>My dearest Khushuuu,</p>
+                    
+                    <p>On this special day, I want you to know how incredibly lucky I feel to have you in my life. Pata hai, jab bhi mera mood off hota hai ya main sad hota hoon, tumhari bas ek hasi mera pura mood change kar deti hai. tumse milne ke baad sae mene apni life ke best moments spent kiya hae. Tum meri life ka woh hissa ho jahan main apna har dard, har khushi, bina soche samjhe keh sakta hoon. Tum meri comfort ho, meri safe place ho… aur shayad mera woh sabse gehra pyaar ho jo shabdon mein bayan nahi ho sakta.</p>
+                    
+                    <div class="secret-note">
+                        <p class="dancing-font text-xl">I don’t know, Khushu, how things will turn out between us in the future, but you’ve always been my peace and my comfort place. No matter what happens, I will always love you for who you are, even if we’re not together in a Relationship. I’m sorry if I’ve ever Hurt you, but since the day we met, I’ve always felt that you are the best part of my life—the one person I know I can always run to, no matter what I’m going through.Khushuu Whatever happens, I will always stand with you, and we will get through every problem together—I promise.</p>
+                    </div>
+                    
+                    <p>Tumhare saath guzara har second, har minute, har moment mere liye itna special hota hai ki main usse words mein describe bhi nahi kar sakta. Mera tumhe Khushuuu ya Motuu bulana, silly jokes pe hasna, bakchodi karna, tumhara mujhe Shubhuu karke bulana, tumhara jealous hona, tumhara gussa hona, tumhara mujhpe apna haq jatana... har ek chhoti si baat, every small thing, mere dil ko ek alag hi sukoon deti hai.</p>
+                    
+                    <p>Thank you for standing by me in every situation. May God bless you with all the happiness you truly deserve. Love you a lot, Khushuuuuu... Muaaah🤍😘</p>
+                    
+                    <p class="text-center dancing-font text-3xl text-pink-600 mt-8">Happy Birthday, My Love ♡</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Moments Section -->
+        <section class="py-16 px-4 md:px-8 bg-gradient-to-b from-pink-50 to-white">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="dancing-font text-4xl md:text-5xl text-center text-pink-600 mb-12">Our Moments</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Photo 1 for Our Moments -->
+                    <div class="polaroid transform transition duration-500 hover:scale-105">
+                        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755094692/1_srdugj.png" alt="Placeholder image for a special moment" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
+                        <p class="text-center dancing-font text-xl mt-2">♡</p>
+                    </div>
+                    
+                    <!-- Photo 2 for Our Moments -->
+                    <div class="polaroid transform transition duration-500 hover:scale-105">
+                        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755095016/5_j2frk7.png" alt="Placeholder image for another special moment" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>Just Us</h3>'">
+                        <p class="text-center dancing-font text-xl mt-2">Just Us</p>
+                    </div>
+                    
+                    <!-- Photo 3 for Our Moments -->
+                    <div class="polaroid transform transition duration-500 hover:scale-105">
+                        <img src="https://res.cloudinary.com/dgmsxbkqb/image/upload/v1755095063/6_zlgftc.png" alt="Placeholder image for a third special moment" class="w-full h-auto object-cover" onerror="this.parentElement.style.background='#f3f4f6'; this.parentElement.innerHTML='<h3 class=\'text-center p-4\'>♡</h3>'">
+                        <p class="text-center dancing-font text-xl mt-2">♡</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Love Notes -->
+        <section class="py-16 px-4 md:px-8 bg-pink-50">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="dancing-font text-4xl text-center text-pink-600 mb-8">Click to Open Love Notes</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <button onclick="showNote(1)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center">
+                        <span class="dancing-font text-xl text-pink-700">Note #1: Our First Meet</span>
+                    </button>
+                    
+                    <button onclick="showNote(2)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center">
+                        <span class="dancing-font text-xl text-pink-700">Note #2: Why Do I Love You</span>
+                    </button>
+                    
+                    <button onclick="showNote(3)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center">
+                        <span class="dancing-font text-xl text-pink-700">Note #3: My Wishes for You</span>
+                    </button>
+
+                    <!-- NEW BUTTON FOR THANK YOU NOTE - PLACED IN THE MIDDLE OF THE NEXT ROW -->
+                    <button onclick="showNote(4)" class="bg-white hover:bg-pink-100 border border-pink-200 rounded-lg p-4 text-center transition-all h-40 flex items-center justify-center col-start-2">
+                        <span class="dancing-font text-xl text-pink-700">Note #4: For All That You’ve Done</span>
+                    </button>
+                </div>
+                
+                <div id="noteContainer" class="mt-8 bg-white rounded-lg shadow-md p-6 hidden">
+                    <div id="noteContent"></div>
+                    <button onclick="closeNote()" class="mt-4 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full text-sm">Close Note</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-8 px-4 bg-gradient-to-r from-pink-500 to-pink-600 text-white text-center">
+            <p class="dancing-font text-2xl mb-2">With all my love,</p>
+            <p class="text-lg">Your Special Someone</p>
+            <p class="mt-4 text-sm opacity-80">Made with ♡ for Khushuuu's Birthday</p>
+        </footer>
+    </div>
 
     <script>
         let isMusicPlaying = false; // Track if music is already playing
@@ -220,7 +260,22 @@
             document.body.appendChild(iframe);
         }
 
-        // Birthday wish function
+        // Function to handle opening the surprise
+        function openSurprise() {
+            document.getElementById('introScreen').classList.add('hidden'); // Hide the intro screen
+            document.getElementById('mainContent').style.display = 'block'; // Show the main content
+            playSong(); // Start the music
+            
+            // Trigger heartbeat animation on main elements after content is visible
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.heart-beat');
+                elements.forEach(el => {
+                    el.style.animation = 'heartbeat 1.5s infinite';
+                });
+            }, 100); // Small delay to ensure elements are rendered
+        }
+
+        // Birthday wish function (remains the same)
         function wishNow() {
             // Trigger confetti effect with more celebratory particles
             // Over-the-top confetti explosion
@@ -299,7 +354,7 @@
             return wishes[Math.floor(Math.random() * wishes.length)];
         }
         
-        // Love notes functions
+        // Love notes functions (remain the same)
         function showNote(noteId) {
             const container = document.getElementById('noteContainer');
             const content = document.getElementById('noteContent');
@@ -326,7 +381,6 @@ Thank you, Khushuu, for coming into my life.🥺💗</p>`,
                         <p class="mt-4">♡ There are thousands of reasons why I love you, and these are just a few of the countless ones you make me feel every day. I will love you now and forever because you hold a very special place in my heart.🥺😘</p>
                     </ul>`,
                 
-                // NOTE #4 CONTENT (order in JS doesn't affect visual layout, only the ID)
                 4: `<h3 class="dancing-font text-2xl text-pink-600 mb-4">For All That You’ve Done</h3>
                     <p>Thank you for being you. I’m truly grateful for every little thing and every effort you make that brings me happiness.<ul class="list-disc pl-5 space-y-2 mt-4">
                     <p>♡ Most importantly, I might never find the right moment to say this in person, but thank you, Khushu, for giving me a relationship chance even though I failed. I wish and pray Radha Rani, that I get that chance once more in the future—and this time, I promise I won’t let you down.♡</p>
@@ -394,18 +448,9 @@ Thank you, Khushuu, for coming into my life.🥺💗</p>`,
             document.getElementById('noteContainer').classList.add('hidden');
         }
         
-        // Celebrate on page load
+        // Initial setup on page load
         window.addEventListener('load', () => {
-            playSong(); // Call playSong() here to start music on page load
-
-            setTimeout(() => {
-                const elements = document.querySelectorAll('.heart-beat');
-                elements.forEach(el => {
-                    el.style.animation = 'heartbeat 1.5s infinite';
-                });
-            }, 1000);
-
-            // Smooth scroll for the scroll down button
+            // Smooth scroll for the scroll down button (only active after main content is shown)
             const scrollDownButton = document.getElementById('scrollDownButton');
             if (scrollDownButton) {
                 scrollDownButton.addEventListener('click', function(e) {
